@@ -512,6 +512,7 @@ xreg <- function(controlList,
 
 }
 
+# hmmm
 summary.xreg <- function(x, ...) summary(x$mle_obj)
 
 print.xreg <- function(x, ...) print(x$mle_obj)
