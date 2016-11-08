@@ -211,7 +211,7 @@ xreg <- function(controlList,
     startValues <- startValues[unique(names(startValues))]
   }
 
-  if(!firstNA(fixed_values)) {
+  if(length(fixed_values)) {
     if("xreg" %in% class(fixed_values)) {
       fixed_values <- fixed_values$pars
       #print("Gothere")
