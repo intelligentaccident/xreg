@@ -23,14 +23,14 @@ xregControl <- function(formulas,
                         start_values = numeric(),
                         fixed_values = numeric(),
                         p_fun = cont_normal,
-                        p_aggregation_fun = function(d_df) -sum(d_df$p * d_df$internal_count),
+                        p_aggregation_fun = function(d_df) return(-d_df$p * d_df$internal_count),
                         weights_var = NA,
                         name = NA,
                         censor_bounds = c(-Inf, Inf),
                         lower = NA,
                         upper = NA) {
-  if(class(formulas) %in% c("xregControl", "xregControlList")) return(c(formulas))
-  if(class(formulas) == "formula") formulas <- list(formulas)
+  if(class(formulas)[1] %in% c("xregControl", "xregControlList")) return(c(formulas))
+  if(class(formulas)[1] == "formula") formulas <- list(formulas)
   required <- names(formals(p_fun))
 
 
@@ -71,6 +71,7 @@ xregControl <- function(formulas,
   retObj$columnNames <- retObj$columnNames[!retObj$columnNames %in% names(start_values)]
 
   class(retObj) <- c("xregControl", "list")
+  #print("GOTHERE")
   retObj <- c(retObj)
 
   return(retObj)
@@ -88,7 +89,7 @@ c.xregControl <- function(...) {
         names(args)[i] <- args[[i]]$name
       }
     }
-    if(!"xregControl" %in% class(args[[i]])) stop("At least one non-xregControl object.")
+    if(!"xregControl" %in% class(args[[i]])) stop("At least one non-xregControl object among arguments.")
   }
   class(args) <- c("xregControlList", "list")
 

@@ -10,6 +10,7 @@
 #' @param print_sum Optional argument to force continuous printing of the progress of fitting. Can be useful for debugging.
 #' @param ... optional arguments to be forwarded to x_mle, optim, xregControl, etc.
 #' @description Allows a list of formulas and fitting functions to be used for each type or set of data.
+#' @aliases summary.xreg, print.xreg
 #' @author Kim Rand-Hendriksen
 #' @examples
 #' control_continuous <- xregControl(formulas = list(x ~ y * YVAR + z + ZVAR, value ~ INTERCEPT + x * XVAR), start_values = c(INTERCEPT = 0, XVAR = 1, YVAR = 1, ZVAR = 1), p_fun = cont_normal, name = "CONTINUOUS")
@@ -510,3 +511,7 @@ xreg <- function(controlList,
   return(res)
 
 }
+
+summary.xreg <- function(x, ...) summary(x$mle_obj)
+
+print.xreg <- function(x, ...) print(x$mle_obj)

@@ -11,7 +11,6 @@
 #' @param upper named list of upper bounds for fitting of values. Requires method L_BFGS-B
 #' @param ... Arguments to be passed on to minuslogl or optim
 #' @description Modified version of the mle function from stats4. Allows arbitrary parameters in function provided to parmaeter minuslogl. Intended for internal use by xreg.
-#' @aliases print.x_mle
 #' @author Original funciton by R Core Team and contributors worldwide. Edits to work properly with xreg by Kim Rand-Hendriksen
 
 x_mle <- function (minuslogl, start = formals(minuslogl), method = "BFGS",

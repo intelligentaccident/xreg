@@ -7,7 +7,7 @@
 \title{Formula, start value, and custom criterion function fitting for xreg#'}
 \usage{
 xregControl(formulas, start_values = numeric(), fixed_values = numeric(),
-  p_fun = cont_normal, p_aggregation_fun = function(d_df) -sum(d_df$p *
+  p_fun = cont_normal, p_aggregation_fun = function(d_df) return(-d_df$p *
   d_df$internal_count), weights_var = NA, name = NA,
   censor_bounds = c(-Inf, Inf), lower = NA, upper = NA)
 }
