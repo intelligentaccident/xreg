@@ -3,8 +3,6 @@
 #' @param x_mle x_mle object
 #' @description Prints important results from an x_mle-object
 #' @author Kim Rand-Hendriksen
-
-
 print.x_mle <- function(x_mle) {
 
   # if(NROW(x_mle$fullcoef)) {
