@@ -5,7 +5,7 @@
 #' @author Kim Rand-Hendriksen
 #' @examples
 #' try0(as.formula(list()))
-#' try0(as.formula("a ~ b))
+#' try0(as.formula(a ~ b))
 try0 <- function(expr, ifError = NULL) {
   tr <- try(expr, TRUE)
   succ <- (class(tr) != "try-error")
