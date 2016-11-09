@@ -14,6 +14,10 @@ try0(expr, ifError = NULL)
 \description{
 Returns second argument if expression in first argument fails.
 }
+\examples{
+try0(as.formula(list()))
+try0(as.formula(a ~ b))
+}
 \author{
 Kim Rand-Hendriksen
 }
