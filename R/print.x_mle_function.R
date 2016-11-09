@@ -25,4 +25,6 @@ print.x_mle <- function(x_mle) {
   }
   cat("\nMinima:\n")
   print(x_mle$minima)
+  cat("\nlogLik:\n")
+  print(-x_mle$minima)
 }
