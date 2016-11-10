@@ -84,27 +84,3 @@ x_mle <- function (minuslogl, start = formals(minuslogl), method = "BFGS",
   class(retval) <- c("x_mle", "list")
   return(retval)
 }
-
-
-print.x_mle <- function(x_mle) {
-
-  # if(NROW(x_mle$fullcoef)) {
-  #   cat(paste0("\nFitted coefficients:\n"))
-  #   print(x_mle$fullcoef)
-  # }
-  # if(NROW(x_mle$fixed_values)) {
-  #   cat(paste0("\nFixed values:\n"))
-  #   #print(ndf(Fixed = x_mle$fixed_values))
-  #   print(x_mle$fixed_values)
-  #
-  # }
-  if(NROW(x_mle$pars)) {
-    cat(paste0("\nParameters:\n"))
-    #print(ndf(Fixed = x_mle$fixed_values))
-    print(x_mle$pars)
-
-  }
-  cat("\nMinima:\n")
-  print(x_mle$minima)
-}
-
