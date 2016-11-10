@@ -2,6 +2,7 @@
 % Please edit documentation in R/print.x_mle_function.R
 \name{print.x_mle}
 \alias{print.x_mle}
+\alias{summary.x_mle}
 \title{Print x_mle-object}
 \usage{
 \method{print}{x_mle}(x_mle)

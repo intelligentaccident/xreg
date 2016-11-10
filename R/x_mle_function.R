@@ -12,10 +12,9 @@
 #' @param ... Arguments to be passed on to minuslogl or optim
 #' @description Modified version of the mle function from stats4. Allows arbitrary parameters in function provided to parmaeter minuslogl. Intended for internal use by xreg.
 #' @author Original funciton by R Core Team and contributors worldwide. Edits to work properly with xreg by Kim Rand-Hendriksen
-
 x_mle <- function (minuslogl, start = formals(minuslogl), method = "BFGS",
                    fixed = list(), nobs, solve_hessian = T, return_first = FALSE, lower = -Inf, upper = Inf, ...) {
-
+  
   call <- match.call()
   n <- names(fixed)
   fullcoef <- formals(minuslogl)
@@ -45,26 +44,26 @@ x_mle <- function (minuslogl, start = formals(minuslogl), method = "BFGS",
       lowerd <- upperd <- start
       lowerd[] <- -Inf
       upperd[] <- Inf
-
+      
       if(is.null(names(lower))) lower <- rep(lower, length(start))
       else lowerd[names(lower)[names(lower) %in% names(lowerd)]] <- lower[names(lower)[names(lower) %in% names(lowerd)]]
       if(is.null(names(upper))) upper <- rep(upper, length(start))
       else upperd[names(upper)[names(upper) %in% names(upperd)]] <- upper[names(upper)[names(upper) %in% names(upperd)]]
-
-
-
+      
+      
+      
       do.call("optim", c(list(par = start, fn = f, method = method, hessian = TRUE, lower = lowerd, upper = upperd), list(...)))
     } else {
       do.call("optim", c(list(par = start, fn = f, method = method, hessian = TRUE), list(...)))
     }
-
-
+    
+    
   }
-
+  
   else {
-
+    
     list(par = numeric(), value = f(start, ...))
-
+    
   }
   coef <- oout$par
   vcov <- if (length(coef) & solve_hessian)
@@ -72,8 +71,10 @@ x_mle <- function (minuslogl, start = formals(minuslogl), method = "BFGS",
   else matrix(numeric(), 0L, 0L)
   min <- oout$value
   fullcoef[nm] <- coef
-  fullcoef <- unlist(fullcoef[nm])
-  fullcoef <- if(solve_hessian) data.frame(Estimate = fullcoef, `Std. Error` = sqrt(diag(vcov)))
+  
+  fullcoef <- data.frame(Estimate = unlist(fullcoef[nm]))
+  fullcoef[, 'Std. Error'] <- NA
+  if(solve_hessian) fullcoef[, 'Std. Error'] <-   sqrt(diag(vcov))
   #print(fullcoef)
   retval <- list( call = call, coef = coef, fullcoef = fullcoef,
                   vcov = vcov, min = min, details = oout, minuslogl = minuslogl, fixed_values = unlist(fixed),
@@ -83,6 +84,7 @@ x_mle <- function (minuslogl, start = formals(minuslogl), method = "BFGS",
   class(retval) <- c("x_mle", "list")
   return(retval)
 }
+
 
 print.x_mle <- function(x_mle) {
 

@@ -2,6 +2,7 @@
 #'
 #' @param x_mle x_mle object
 #' @description Prints important results from an x_mle-object
+#' @aliases summary.x_mle
 #' @author Kim Rand-Hendriksen
 print.x_mle <- function(x_mle) {
 
@@ -26,3 +27,5 @@ print.x_mle <- function(x_mle) {
   cat("\nlogLik:\n")
   print(-x_mle$minima)
 }
+
+summary.x_mle <- function(x_mle) print(x_mle)
