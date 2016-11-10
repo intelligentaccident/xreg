@@ -22,10 +22,11 @@ print.x_mle <- function(x_mle) {
     print(x_mle$pars)
 
   }
-  cat("\nMinima:\n")
-  print(x_mle$minima)
-  cat("\nlogLik:\n")
-  print(-x_mle$minima)
+  cat("\nInfo:\n")
+  #print(x_mle$minima)
+  #cat("\nlogLik:\n")
+  #print(-x_mle$minima)
+  print(x_mle$info)
 }
 
 summary.x_mle <- function(x_mle) print(x_mle)

@@ -362,6 +362,13 @@ xreg <- function(controlList,
     fixedValues <- c(fixedValues, control$fixed_values[!names(control$fixed_values) %in% names(fixedValues)])
     
     all_defined_vars <- c(all_defined_vars, defined_vars[!defined_vars %in% all_defined_vars])
+    
+    controlList[[dataName]]$obs_types <- c(Uncensored = sum(data_df$internal_count * (data_df$internal_ub == data_df$internal_lb)),
+                   'Left censored' = sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_ub < Inf) * (data_df$internal_lb == -Inf)),
+                   'Right censored'= sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_ub > -Inf) * (data_df$internal_ub == Inf)),
+                   'Intervals'= sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_ub > -Inf) * (data_df$internal_ub < Inf))
+                   )
+    
   }
   
   
@@ -498,17 +505,21 @@ xreg <- function(controlList,
   res_types["p_sum"] <- numeric()
   res_types["counts"] <- numeric()
   pars[, paste0("n_", names(dfs))] <- 0
+  obs_types <- as.data.frame(matrix(rep(0, length(names(dfs))*4), nrow = 4))
+  colnames(obs_types) <- names(dfs)
+  rownames(obs_types) <- c("Uncensored", "Left-censored", "Right-censored", "Intervals")
   for(nm in names(dfs)) {
     
     res_types[["p_sum"]][[nm]] <- sum(controlList[[dataName]]$p_aggregation_fun(dfs[[nm]]))
     
     
     pars[rownames(pars) %in% controlList[[nm]]$defined_vars,paste0("n_", nm)] <- res_types[["counts"]][nm] <- sum(dfs[[nm]]$internal_count)
-    
+    obs_types[,nm] <- controlList[[nm]]$obs_types
     
   }
+  obs_types$total <- rowSums(obs_types)
   pars[, "n_sum"] <- rowSums(pars[, paste0("n_", names(dfs)), F])
-  pars[, 't value'] <- pars$Estimate/pars$'Std. Error'
+  pars[, 't value'] <- abs(pars$Estimate)/pars$'Std. Error'
   pars[,'Pr(>|t|)'] <- 2*pt(pars$'t value', df = pars$n_sum-1, lower.tail = F)
   
   testmle$pars <- pars
@@ -520,8 +531,9 @@ xreg <- function(controlList,
   res_types[["p_sum"]]["total"] <- sum(res_types[["p_sum"]])
   
   testmle$minima <- res_types$p_sum
+  testmle$obs_types <- obs_types
   
-  
+  testmle$info <- rbind(obs_types, total_obs = res_types$counts, minima = res_types$p_sum, logLik = -res_types$p_sum)
   
   names(testmle$pars_v) <- rownames(pars)
   res <- list(controlList = controlList,
@@ -534,6 +546,7 @@ xreg <- function(controlList,
               fixed_values = fixed_df,
               minima = res_types[["p_sum"]],
               counts = res_types[["counts"]],
+              obs_types = obs_types,
               pars = pars,
               pars_v = testmle$pars_v)
   
