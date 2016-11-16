@@ -6,9 +6,9 @@
 #' @param p_aggregatio_fun function to aggregate likelihoods (or similar), to be returned to optim
 #' @param weights_var optional parameter. If provided, should match a column in provided data.frame, and will be used as a frequency weight when aggregating likelihoods.
 #' @param name Name of control-set. If none is provided, names will be set by the order of controlsets. data.frames will be matched to control-sets using these names (or order).
-#' @param censor_bounds Optional observation bounds for interval regression. Not implemented.
-#' @param lower Optional lower observation bound for interval regression. Not implemented.
-#' @param upper Optional upper observation bound for interval regression. Not implemented.
+#' @param censor_bounds Optional observation bounds for interval regression, e.g. c(1, 2). Defaults to c(-Inf, Inf)
+#' @param lower Named vector of optional box constraint lower bounds for fitting of parameters. E.g. c(VAR1 = 0) will force VAR1 to be >=0.
+#' @param upper Named vector of optional box constraint upper bounds for fitting of parameters. E.g. c(VAR1 = 1) will force VAR1 to be <=1.
 #' @description Allows a list of formulas and fitting functions to be used for each type or set of data,
 #' @aliases c.xregControl, c.xregControlList
 #' @author Kim Rand-Hendriksen
