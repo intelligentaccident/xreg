@@ -201,9 +201,9 @@ xreg <- function(controlList,
   if(is.null(names(dataList))) {
     if(length(dataList) <= length(controlList)) {
       warning("Provided datalist was unnamed. Names coerced from controlList")
-      names(dataList) <- names(controlList)[1:length(datalist)]
+      names(dataList) <- names(controlList)[1:length(dataList)]
     } else {
-      stop("Provided datalist was unnamed, and longer than providedd controllist. Exiting.")
+      stop("Provided datalist was unnamed, and longer than provided controllist. Exiting.")
     }
   }
   if(length(unique(names(startValues))) < length(startValues)) {
