@@ -225,11 +225,14 @@ xreg <- function(controlList,
       
       #print(fixed_values)
       fixed_df <- data.frame(Estimate = fixed_values, 'Std. Error' = rep(NA, NROW(fixed_values)))
-      colnames(fixed_df) <- c('Estimate', 'Std. Error')
+      
       rownames(fixed_df) <- names(fixed_values)
     }
+  } else {
+    fixed_df <- data.frame(a = numeric(), b = numeric())
+    
   }
-  
+  colnames(fixed_df) <- c('Estimate', 'Std. Error')
   fixedValues <- numeric()
   
   
@@ -499,10 +502,13 @@ xreg <- function(controlList,
   
   
   
+  pars <-cbind(testmle$fullcoef, type = rep("Fitted", NROW(testmle$fullcoef)))
   
   testmle$fixed_values <- fixed_df
   
-  pars <- rbind(cbind(testmle$fullcoef, type = rep("Fitted", NROW(testmle$fullcoef))),cbind(fixed_df, type = rep("Fixed", NROW(fixed_df))))
+  testmle$fixed_values <- fixed_df
+  pars <- rbind(pars, cbind(fixed_df, type = rep("Fixed", NROW(fixed_df))))
+  
   
   
   res_types <- list()
