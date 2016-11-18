@@ -400,6 +400,7 @@ xreg <- function(controlList,
   # }
   
   undefined_vars <- unique(undefined_vars[!undefined_vars %in% c(names(startValues), latent_class_parameters)])
+  undefined_vars <- undefined_vars[!undefined_vars %in% "Xb"]
   if(length(undefined_vars)) {
     tmp <- paste(undefined_vars, collapse = ", ")
     used_from <- "xreg"
@@ -535,7 +536,8 @@ xreg <- function(controlList,
   testmle$pars <- pars
   testmle$pars_v <- pars[,1]
   #print(testmle$pars)
-  
+  testmle$coef <- testmle$pars[,1]
+  names(testmle$coef) <- rownames(testmle$pars)
   
   res_types[["counts"]][["total_count"]] <- sum(res_types[["counts"]])
   res_types[["p_sum"]]["total"] <- sum(res_types[["p_sum"]])
