@@ -391,16 +391,11 @@ xreg <- function(controlList,
   startValues[names(fixed_values)[names(fixed_values) %in% names(startValues)]] <- fixed_values[names(fixed_values) %in% names(startValues)]
   
   
-  # if(length(start_suggestions)) {
-  #   if("xreg" %in% class(start_suggestions)) start_suggestions <- start_suggestions$coef
-  #   if(is.numeric(start_suggestions)) {
-  #     overlap <- names(startValues)[names(startValues) %in% names(start_suggestions)]
-  #     startValues[overlap] <- start_suggestions[overlap]
-  #   }
-  # }
   
   undefined_vars <- unique(undefined_vars[!undefined_vars %in% c(names(startValues), latent_class_parameters)])
-  undefined_vars <- undefined_vars[!undefined_vars %in% "Xb"]
+  undefined_vars <- undefined_vars[!undefined_vars %in% c("Xb", names(fixedValues))]
+  
+  
   if(length(undefined_vars)) {
     tmp <- paste(undefined_vars, collapse = ", ")
     used_from <- "xreg"
