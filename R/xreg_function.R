@@ -501,8 +501,7 @@ xreg <- function(controlList,
   
   
   testmle$fixed_values <- fixed_df
-  print(cbind(testmle$fullcoef, type = rep("Fitted", NROW(testmle$fullcoef))))
-  print(cbind(fixed_df, type = rep("Fixed", NROW(fixed_df))))
+  
   pars <- rbind(cbind(testmle$fullcoef, type = rep("Fitted", NROW(testmle$fullcoef))),cbind(fixed_df, type = rep("Fixed", NROW(fixed_df))))
   
   
