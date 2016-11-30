@@ -24,11 +24,11 @@ xregControl(formulas, start_values = numeric(), fixed_values = numeric(),
 
 \item{name}{Name of control-set. If none is provided, names will be set by the order of controlsets. data.frames will be matched to control-sets using these names (or order).}
 
-\item{censor_bounds}{Optional observation bounds for interval regression. Not implemented.}
+\item{censor_bounds}{Optional observation bounds for interval regression, e.g. c(1, 2). Defaults to c(-Inf, Inf)}
 
-\item{lower}{Optional lower observation bound for interval regression. Not implemented.}
+\item{lower}{Named vector of optional box constraint lower bounds for fitting of parameters. E.g. c(VAR1 = 0) will force VAR1 to be >=0.}
 
-\item{upper}{Optional upper observation bound for interval regression. Not implemented.}
+\item{upper}{Named vector of optional box constraint upper bounds for fitting of parameters. E.g. c(VAR1 = 1) will force VAR1 to be <=1.}
 
 \item{p_aggregatio_fun}{function to aggregate likelihoods (or similar), to be returned to optim}
 }
