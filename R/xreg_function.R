@@ -211,7 +211,7 @@ xreg <- function(controlList,
     startValues <- startValues[unique(names(startValues))]
   }
   
-  if(!length(fixed_values)) {
+  if(length(fixed_values)) {
     if("xreg" %in% class(fixed_values)) {
       fixed_values <- fixed_values$pars
       #print("Gothere")
@@ -223,6 +223,7 @@ xreg <- function(controlList,
     } else {
       #print(fixed_values)
       fixed_df <- data.frame(Estimate = fixed_values, 'Std. Error' = rep(NA, NROW(fixed_values)))
+      colnames(fixed_df) <- c('Estimate', 'Std. Error')
       rownames(fixed_df) <- names(fixed_values)
     }
   }
@@ -364,10 +365,10 @@ xreg <- function(controlList,
     all_defined_vars <- c(all_defined_vars, defined_vars[!defined_vars %in% all_defined_vars])
     
     controlList[[dataName]]$obs_types <- c(Uncensored = sum(data_df$internal_count * (data_df$internal_ub == data_df$internal_lb)),
-                   'Left censored' = sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_ub < Inf) * (data_df$internal_lb == -Inf)),
-                   'Right censored'= sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_ub > -Inf) * (data_df$internal_ub == Inf)),
-                   'Intervals'= sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_ub > -Inf) * (data_df$internal_ub < Inf))
-                   )
+                                           'Left censored' = sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_ub < Inf) * (data_df$internal_lb == -Inf)),
+                                           'Right censored'= sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_ub > -Inf) * (data_df$internal_ub == Inf)),
+                                           'Intervals'= sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_ub > -Inf) * (data_df$internal_ub < Inf))
+    )
     
   }
   
@@ -379,6 +380,7 @@ xreg <- function(controlList,
     names(tmp) <- names(fixed_values)
     tmp[rownames(fixed_df)] <- fixed_df[,2]
     fixed_df <- data.frame(Estimate = fixed_values, 'Std. Error' = tmp)
+    colnames(fixed_df) <- c('Estimate', 'Std. Error')
     
   }
   startValues[names(fixed_values)[names(fixed_values) %in% names(startValues)]] <- fixed_values[names(fixed_values) %in% names(startValues)]
