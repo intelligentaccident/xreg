@@ -7,7 +7,7 @@
 #' @description Predict function for xreg-objects.
 #' @author Kim Rand-Hendriksen
 predict.xreg <- function(object, newdata = NULL, type = c("link", "response", "terms"), return_lik_df = FALSE, return_vector = FALSE) {
-  preds <- do.call(xlik, c(list(controlList = object$controlList, dataList = newdata, return_first_df = TRUE, return_lik_df = return_lik_df), as.list(object$coef)))
+  preds <- do.call(xlik, c(list(controlList = object$controlList, dataList = newdata, return_first_df = TRUE, return_lik_df = return_lik_df, predict = TRUE), as.list(object$coef)))
   if(length(newdata) == 1 && return_vector) return(preds[[1]]$Xb)
   return(preds)
 }

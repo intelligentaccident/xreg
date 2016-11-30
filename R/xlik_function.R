@@ -39,9 +39,12 @@ xlik <- function(...,
         if(new_var == valueVar) new_var = "Xb"
         d_df[, new_var] <- with(args, with(d_df, eval(parse(text = formula))))
       }
-      d_df$p <- p_fun(d_df)
-      d_df$wp <- p_aggregation_fun(d_df)
-      colnames(d_df)[match(c("Xb", "p", "wp"), colnames(d_df))] <- paste0(c("Xb", "p", "wp"), cur_suffix)
+      if(!"predict" %in% names(args)) {
+        d_df$p <- p_fun(d_df)
+        d_df$wp <- p_aggregation_fun(d_df)
+        colnames(d_df)[match(c("Xb", "p", "wp"), colnames(d_df))] <- paste0(c("Xb", "p", "wp"), cur_suffix)  
+      }
+      
       return(d_df)
     }
     
