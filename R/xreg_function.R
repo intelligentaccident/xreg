@@ -212,6 +212,7 @@ xreg <- function(controlList,
   }
   
   if(length(fixed_values)) {
+
     if("xreg" %in% class(fixed_values)) {
       fixed_values <- fixed_values$pars
       #print("Gothere")
@@ -221,13 +222,17 @@ xreg <- function(controlList,
       fixed_values <- fixed_values[,1]
       names(fixed_values) <- rownames(fixed_df)
     } else {
+      
       #print(fixed_values)
       fixed_df <- data.frame(Estimate = fixed_values, 'Std. Error' = rep(NA, NROW(fixed_values)))
       colnames(fixed_df) <- c('Estimate', 'Std. Error')
       rownames(fixed_df) <- names(fixed_values)
     }
+  } else {
+    fixed_df <- data.frame(a = numeric(), b = numeric())
+    
   }
-  
+  colnames(fixed_df) <- c('Estimate', 'Std. Error')
   fixedValues <- numeric()
   
   
@@ -386,15 +391,11 @@ xreg <- function(controlList,
   startValues[names(fixed_values)[names(fixed_values) %in% names(startValues)]] <- fixed_values[names(fixed_values) %in% names(startValues)]
   
   
-  # if(length(start_suggestions)) {
-  #   if("xreg" %in% class(start_suggestions)) start_suggestions <- start_suggestions$coef
-  #   if(is.numeric(start_suggestions)) {
-  #     overlap <- names(startValues)[names(startValues) %in% names(start_suggestions)]
-  #     startValues[overlap] <- start_suggestions[overlap]
-  #   }
-  # }
   
   undefined_vars <- unique(undefined_vars[!undefined_vars %in% c(names(startValues), latent_class_parameters)])
+  undefined_vars <- undefined_vars[!undefined_vars %in% c("Xb", names(fixedValues))]
+  
+  
   if(length(undefined_vars)) {
     tmp <- paste(undefined_vars, collapse = ", ")
     used_from <- "xreg"
@@ -497,10 +498,13 @@ xreg <- function(controlList,
   
   
   
+  pars <-cbind(testmle$fullcoef, type = rep("Fitted", NROW(testmle$fullcoef)))
   
   testmle$fixed_values <- fixed_df
   
-  pars <- rbind(cbind(testmle$fullcoef, type = rep("Fitted", NROW(testmle$fullcoef))),cbind(fixed_df, type = rep("Fixed", NROW(fixed_df))))
+  testmle$fixed_values <- fixed_df
+  pars <- rbind(pars, cbind(fixed_df, type = rep("Fixed", NROW(fixed_df))))
+  
   
   
   res_types <- list()
@@ -527,7 +531,8 @@ xreg <- function(controlList,
   testmle$pars <- pars
   testmle$pars_v <- pars[,1]
   #print(testmle$pars)
-  
+  testmle$coef <- testmle$pars[,1]
+  names(testmle$coef) <- rownames(testmle$pars)
   
   res_types[["counts"]][["total_count"]] <- sum(res_types[["counts"]])
   res_types[["p_sum"]]["total"] <- sum(res_types[["p_sum"]])
