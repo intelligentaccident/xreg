@@ -221,10 +221,11 @@ xreg <- function(controlList,
       
     })
     
+    
     #print(data_df)
     
     if(sum(data_df$both_na)) {
-      warning(paste0(sum(data_df$both_na," rows in which ", valueVar, " was NA were removed.")))
+      warning(paste0(sum(data_df$both_na)," rows in which ", valueVar, " was NA were removed."))
       data_df <- data_df[!data_df$both_na, -(NCOL(data_df))]
     }
     if(!is.na((weights_var <- control$weights_var)) & weights_var %in% colnames(data_df)) data_df$internal_count <- data_df[, weights_var]
