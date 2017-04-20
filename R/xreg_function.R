@@ -119,9 +119,9 @@ xreg <- function(controlList,
   initControlList <- controlList
   
   aggr <- TRUE
-  return_df <- (return_type == "df")
+  return_lik_df <- (return_type == "df")
   return_first <- (return_type == "first")
-  return_lik_df <- FALSE
+  #return_lik_df <- FALSE
   if(return_type == "predict") {
     aggr <- FALSE
     return_lik_df = TRUE
