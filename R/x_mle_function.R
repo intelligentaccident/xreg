@@ -82,6 +82,8 @@ x_mle <- function (minuslogl, start = formals(minuslogl), method = "BFGS",
     fullcoef[, 'Std. Error'] <- NA
     if(solve_hessian) fullcoef[, 'Std. Error'] <-   sqrt(diag(vcov))
   }
+  
+  
   retval <- list( call = call, coef = coef, fullcoef = fullcoef,
                   vcov = vcov, min = min, details = oout, minuslogl = minuslogl, fixed_values = unlist(fixed),
                   nobs = if (missing(nobs))
