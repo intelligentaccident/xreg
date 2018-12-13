@@ -388,8 +388,8 @@ xreg <- function(controlList,
   
   
   res_types <- list()
-  res_types["p_sum"] <- numeric()
-  res_types["counts"] <- numeric()
+  # res_types["p_sum"] <- numeric()
+  # res_types["counts"] <- numeric()
   pars[, paste0("n_", names(dfs))] <- 0
   obs_types <- as.data.frame(matrix(rep(0, length(names(dfs))*4), nrow = 4))
   colnames(obs_types) <- names(dfs)
