@@ -214,6 +214,9 @@ xreg <- function(controlList,
       internal_ub[internal_ub >= max(control$censor_bounds)] <- Inf
       internal_lb[internal_lb <= min(control$censor_bounds)] <- -Inf
       
+      internal_lb[internal_ub >= max(control$censor_bounds)] <- max(control$censor_bounds)
+      internal_ub[internal_lb <= min(control$censor_bounds)] <- min(control$censor_bounds)
+      
       internal_ub[is.na(internal_ub)] <- Inf
       internal_lb[is.na(internal_lb)] <- -Inf
       
