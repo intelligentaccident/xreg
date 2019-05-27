@@ -9,6 +9,7 @@
 #' formula1 <- oldtarget ~ x + y
 #' change_target(formula1, "newtarget")
 #' change_target(formula1, "newtarget", "not_this_target")
+#' @export
 change_target <- function(object, newtarget, oldtarget = NULL) UseMethod("change_target")
 change_target.formula <- function(object, newtarget, oldtarget = NULL) {
   fenv <- attr(object, ".Environment")

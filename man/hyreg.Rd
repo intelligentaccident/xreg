@@ -48,5 +48,5 @@ joint_control <- c(control_continuous, control_dichotomous)
 xreg(controlList = joint_control, dataList = list(CONTINUOUS = df1, DICHOTOMUS = df2))
 }
 \author{
-Kim Rand-Hendriksen
+Kim Rand
 }

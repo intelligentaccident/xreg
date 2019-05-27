@@ -4,10 +4,11 @@
 #' @param append character that will succede the model expression
 #' @description Prepends or appends to the right-hand-side of a formula
 #' @aliases appendmodel.formula
-#' @author Kim Rand-Hendriksen
+#' @author Kim Rand
 #' @examples
 #' appendmodel(~ a + b, "exp(", ")")
 #' appendmodel(z ~ a + b, " y + ")
+#' @export
 appendmodel <- function(object, prepend = "", append = "") UseMethod("appendmodel")
 appendmodel.formula <- function(object, prepend = "", append = ""){
   LHS <- ""

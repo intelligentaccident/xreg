@@ -22,5 +22,5 @@ appendmodel(~ a + b, "exp(", ")")
 appendmodel(z ~ a + b, " y + ")
 }
 \author{
-Kim Rand-Hendriksen
+Kim Rand
 }

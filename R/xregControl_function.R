@@ -11,12 +11,13 @@
 #' @param upper Named vector of optional box constraint upper bounds for fitting of parameters. E.g. c(VAR1 = 1) will force VAR1 to be <=1.
 #' @description Allows a list of formulas and fitting functions to be used for each type or set of data,
 #' @aliases c.xregControl, c.xregControlList
-#' @author Kim Rand-Hendriksen
+#' @author Kim Rand
 #' @examples
 #' control_continuous <- xregControl(formulas = list(x ~ y * YVAR + z + ZVAR, value ~ INTERCEPT + x * XVAR), start_values = c(INTERCEPT = 0, XVAR = 1, YVAR = 1, ZVAR = 1), p_fun = cont_normal, name = "CONTINUOUS")
 #' control_dichotomos <- xregControl(formulas = list(value ~ INTERCEPT2 + z * ZVAR), start_values = c(INTERCEPT2 = 0, ZVAR = 1), p_fun = dich_logistic, name = "DICHOTOMOUS")
 #' joint_control <- c(control_continuous, control_dichotomous)
 #' xreg(controlList = joint_control, dataList = list(CONTINUOUS = df1, DICHOTOMUS = df2))
+#' @export
 
 
 xregControl <- function(formulas,

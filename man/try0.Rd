@@ -19,5 +19,5 @@ try0(as.formula(list()))
 try0(as.formula(a ~ b))
 }
 \author{
-Kim Rand-Hendriksen
+Kim Rand
 }

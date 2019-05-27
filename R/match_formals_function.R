@@ -7,6 +7,7 @@
 #' fun1 <- function(a, b) print(paste(a, b, sep = ", "))
 #' fun2 <- function(a, c = 2, d) do.call(fun1, match_formals(fun1, b = c))
 #' fun2(a = "a", d = "d")
+#' @export
 
 match_formals <- function(fun = as.character(do.call("match.call", args = list(), envir = parent.frame())[1]), ...) {
   f <- formals(fun)

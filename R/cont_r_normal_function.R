@@ -4,6 +4,7 @@
 #' @param sigma_est Within-unit variance parameter, may be specified as a function to vary between observations. Defaults to exp(LN_SIGMA)
 #' @param omega_est Between-unit variance parameter, must be a fixed result for all observations, as only the first instance will be used. Defaults to exp(LN_OMEGA)
 #' @description Likelihood function to use with xregControl
+#' @export
 cont_r_normal <- function (d_df, sigma_est = 0, omega_est = 0, internal_id = 0) {
 if (sigma_est == 1)
   return(list(formula = formula(sigma_est ~ exp(LN_SIGMA), env = globalenv()),

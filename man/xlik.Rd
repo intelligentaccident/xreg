@@ -33,5 +33,5 @@ xlik(..., controlList, dataList, print_sum = FALSE,
 Allows a list of formulas and fitting functions to be used for each type or set of data.
 }
 \author{
-Kim Rand-Hendriksen
+Kim Rand
 }

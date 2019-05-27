@@ -14,12 +14,13 @@
 #' @param dichformula optional formula argument for the dichotomous dataset. If not provided, the formula for dichotomous data will be the same as for continuous.
 #' @param ... optional arguments to be forwarded to xregControl, xreg, x_mle, or optim
 #' @description Wrapper for xregControl and xreg to match the functionality of the STATA hyreg function.
-#' @author Kim Rand-Hendriksen
+#' @author Kim Rand
 #' @examples
 #' control_continuous <- xregControl(formulas = list(x ~ y * YVAR + z + ZVAR, value ~ INTERCEPT + x * XVAR), start_values = c(INTERCEPT = 0, XVAR = 1, YVAR = 1, ZVAR = 1), p_fun = cont_normal, name = "CONTINUOUS")
 #' control_dichotomos <- xregControl(formulas = list(value ~ INTERCEPT2 + z * ZVAR), start_values = c(INTERCEPT2 = 0, ZVAR = 1), p_fun = dich_logistic, name = "DICHOTOMOUS")
 #' joint_control <- c(control_continuous, control_dichotomous)
 #' xreg(controlList = joint_control, dataList = list(CONTINUOUS = df1, DICHOTOMUS = df2))
+#' @export
 hyreg <- function(formula, df, datatype = "method", init = numeric(), contdist = "normal", dichdist = "logistic", hetcont = NULL, hetdich = NULL, ul = Inf, ll = -Inf, lntheta = T, lnsigma = T, dichformula = NULL, ...) {
   if(!"data.frame" %in% class(df)) stop(paste0(class(df)[1], " provided to the df argument. Should be data.frame."))
   if(!datatype %in% colnames(df)) stop(paste0("No column named \"", datatype, "\" in provided dataframe."))

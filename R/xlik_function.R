@@ -10,7 +10,8 @@
 #' @param ... optional arguments to be forwarded to x_mle, optim, xregControl, etc.
 #' @description Allows a list of formulas and fitting functions to be used for each type or set of data.
 #' @aliases summary.xreg, print.xreg
-#' @author Kim Rand-Hendriksen
+#' @author Kim Rand
+#' @export
 xlik <- function(...,
                  controlList,
                  dataList,

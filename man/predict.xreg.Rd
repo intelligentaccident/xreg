@@ -22,5 +22,5 @@
 Predict function for xreg-objects.
 }
 \author{
-Kim Rand-Hendriksen
+Kim Rand
 }

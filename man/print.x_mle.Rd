@@ -14,5 +14,5 @@
 Prints important results from an x_mle-object
 }
 \author{
-Kim Rand-Hendriksen
+Kim Rand
 }
