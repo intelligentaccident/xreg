@@ -11,6 +11,7 @@
 #' change_target(formula1, "newtarget", "not_this_target")
 #' @export
 change_target <- function(object, newtarget, oldtarget = NULL) UseMethod("change_target")
+#' @export
 change_target.formula <- function(object, newtarget, oldtarget = NULL) {
   fenv <- attr(object, ".Environment")
   if(length(as.list(object)) == 2) retval <- as.formula(paste0(newtarget, "~", as.character(object[2])))

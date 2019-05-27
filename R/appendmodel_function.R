@@ -10,6 +10,7 @@
 #' appendmodel(z ~ a + b, " y + ")
 #' @export
 appendmodel <- function(object, prepend = "", append = "") UseMethod("appendmodel")
+#' @export
 appendmodel.formula <- function(object, prepend = "", append = ""){
   LHS <- ""
   RHS <- as.character(object[length(object)])

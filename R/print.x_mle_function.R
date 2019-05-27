@@ -30,4 +30,6 @@ print.x_mle <- function(x_mle) {
   print(x_mle$info)
 }
 
+
+#' @export
 summary.x_mle <- function(x_mle) print(x_mle)

@@ -119,7 +119,7 @@ c.xregControl <- function(...) {
   return(args)
 }
 
-
+#' @export
 c.xregControlList <- function(...) {  #return(do.call(c.xregControl, do.call(c.list, list(...))))
   args <- list(...)
   for(narg in 1:length(args)) {

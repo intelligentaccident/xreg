@@ -459,7 +459,9 @@ xreg <- function(controlList,
   return(res)
   
 }
-# hmmm
+
+#' @export
 summary.xreg <- function(x, ...) summary(x$mle_obj)
 
+#' @export
 print.xreg <- function(x, ...) print(x$mle_obj)
