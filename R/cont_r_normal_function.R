@@ -27,8 +27,8 @@ d_df$p <- 0
 
 order <- 20L
 
-ws <- as.matrix(ghs[[order]]$w)
-xs <- ghs[[order]]$x
+ws <- as.matrix(xreg_GHS[[order]]$w)
+xs <- xreg_GHS[[order]]$x
 mus <- sqrt(2) * betwSD * xs
 
 tmpm <- matrix(NA, nrow = NROW(d_df), ncol = order)
