@@ -4,8 +4,8 @@
 \alias{predict.xreg}
 \title{Predict function for xreg}
 \usage{
-\method{predict}{xreg}(object, newdata = NULL, type = c("link", "response",
-  "terms"), return_lik_df = FALSE, return_vector = FALSE)
+\method{predict}{xreg}(object, newdata = NULL, type = c("link",
+  "response", "terms"), return_lik_df = FALSE, return_vector = FALSE)
 }
 \arguments{
 \item{object}{xreg-object}
@@ -24,4 +24,3 @@ Predict function for xreg-objects.
 \author{
 Kim Rand-Hendriksen
 }
-

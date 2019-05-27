@@ -21,4 +21,3 @@ try0(as.formula(a ~ b))
 \author{
 Kim Rand-Hendriksen
 }
-

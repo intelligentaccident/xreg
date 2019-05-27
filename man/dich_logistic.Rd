@@ -17,4 +17,3 @@ Likelihood function to use with xregControl
 \details{
 Likelihood functions for data.frame
 }
-

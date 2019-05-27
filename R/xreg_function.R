@@ -91,7 +91,7 @@ xreg <- function(controlList,
   }
   
   if(length(fixed_values)) {
-
+    
     if("xreg" %in% class(fixed_values)) {
       fixed_values <- fixed_values$pars
       #print("Gothere")
@@ -214,12 +214,22 @@ xreg <- function(controlList,
       internal_ub[internal_ub >= max(control$censor_bounds)] <- Inf
       internal_lb[internal_lb <= min(control$censor_bounds)] <- -Inf
       
-      internal_lb[internal_ub >= max(control$censor_bounds)] <- max(control$censor_bounds)
-      internal_ub[internal_lb <= min(control$censor_bounds)] <- min(control$censor_bounds)
+      internal_lb[internal_lb >= max(control$censor_bounds)] <- max(control$censor_bounds)
+      internal_ub[internal_ub <= min(control$censor_bounds)] <- min(control$censor_bounds)
       
       internal_ub[is.na(internal_ub)] <- Inf
       internal_lb[is.na(internal_lb)] <- -Inf
       
+      internal_type <- rep(3, NROW(internal_ub))
+      # print(rbind(int_type = internal_type, int_lb = internal_lb, int_ub = internal_ub))
+      internal_type[internal_ub == internal_lb] <- 1
+      # print(internal_ub == internal_lb)
+      # print(rbind(int_type = internal_type, int_lb = internal_lb, int_ub = internal_ub))
+      internal_type[internal_ub == Inf] <- 0
+      # print(rbind(int_type = internal_type, int_lb = internal_lb, int_ub = internal_ub))
+      internal_type[internal_lb == -Inf] <- 2
+      
+      # print(rbind(int_type = internal_type, int_lb = internal_lb, int_ub = internal_ub))
       internal_count <- 1
       
     })
@@ -254,8 +264,8 @@ xreg <- function(controlList,
     
     controlList[[dataName]]$obs_types <- c(Uncensored = sum(data_df$internal_count * (data_df$internal_ub == data_df$internal_lb)),
                                            'Left censored' = sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_ub < Inf) * (data_df$internal_lb == -Inf)),
-                                           'Right censored'= sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_ub > -Inf) * (data_df$internal_ub == Inf)),
-                                           'Intervals'= sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_ub > -Inf) * (data_df$internal_ub < Inf))
+                                           'Right censored'= sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_lb > -Inf) * (data_df$internal_ub == Inf)),
+                                           'Intervals'= sum(data_df$internal_count * (data_df$internal_ub > data_df$internal_lb) * (data_df$internal_lb > -Inf) * (data_df$internal_ub < Inf))
     )
     
   }
@@ -329,13 +339,15 @@ xreg <- function(controlList,
       meth <- list(...)[["method"]]
       if(meth == "L-BFGS-B") boxconstr <- T
     }
-    if(boxconstr) control <- list(maxit = 10000, factr = .Machine$double.eps)
-    else control <- list(maxit = 10000, abstol = .Machine$double.eps, reltol = .Machine$double.eps)
+    # if(boxconstr) control <- list(maxit = 10000, factr = .Machine$double.eps)
+    # else control <- list(maxit = 10000, abstol = .Machine$double.eps, reltol = .Machine$double.eps)
+    if(boxconstr) control <- list(maxit = 10000, factr = 1e-11)
+    else control <- list(maxit = 10000, abstol = 1e-9, reltol = 1e-11)
     #control <- list(maxit = 5, abstol = .Machine$double.eps, reltol = .Machine$double.eps)
   }
   
   startValues[names(fixed_values)] <- fixed_values
-  
+  # print(names(newDataList[[1]]))
   if(return_first) {
     ret <- do.call(lik_fun, c(startValues,
                               list(

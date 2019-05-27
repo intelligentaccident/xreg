@@ -19,10 +19,9 @@ Changes the left-hand side of a formula
 }
 \examples{
 formula1 <- oldtarget ~ x + y
-changetarget(formula1, "newtarget")
-changetarget(formula1, "newtarget", "not_this_target")
+change_target(formula1, "newtarget")
+change_target(formula1, "newtarget", "not_this_target")
 }
 \author{
 Kim Rand-Hendriksen
 }
-

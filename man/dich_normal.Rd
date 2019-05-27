@@ -9,7 +9,7 @@ dich_normal(d_df, theta_est = 0)
 \arguments{
 \item{d_df}{data.frame provided by xreg.}
 
-\item{theta_est}{Subsequent parameters define required formulas to genrete necessary variables, such as standard deviations. If these are not manually provided (which could be useful to model heteroscedasticity, etc.), xreg will get them from the functions.}
+\item{theta_est}{Subsequent parameters define required formulas to generate necessary variables, such as standard deviations. If these are not manually provided (which could be useful to model heteroscedasticity, etc.), xreg will get them from the functions.}
 }
 \description{
 Likelihood function to use with xregControl
@@ -17,4 +17,3 @@ Likelihood function to use with xregControl
 \details{
 Likelihood functions for data.frame
 }
-

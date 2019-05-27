@@ -50,4 +50,3 @@ xreg(controlList = joint_control, dataList = list(CONTINUOUS = df1, DICHOTOMUS =
 \author{
 Kim Rand-Hendriksen
 }
-

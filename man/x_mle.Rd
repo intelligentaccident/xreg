@@ -35,4 +35,3 @@ Modified version of the mle function from stats4. Allows arbitrary parameters in
 \author{
 Original funciton by R Core Team and contributors worldwide. Edits to work properly with xreg by Kim Rand-Hendriksen
 }
-

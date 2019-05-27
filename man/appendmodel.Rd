@@ -24,4 +24,3 @@ appendmodel(z ~ a + b, " y + ")
 \author{
 Kim Rand-Hendriksen
 }
-
