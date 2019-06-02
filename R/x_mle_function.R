@@ -55,9 +55,9 @@ x_mle <- function (minuslogl, start = formals(minuslogl), method = "BFGS",
       
       
       
-      do.call(optim_string, c(list(par = start, fn = f, method = method, hessian = TRUE, lower = lowerd, upper = upperd), list(...)))
+      do.call(optim_string, c(list(par = start, fn = f, method = method, hessian = solve_hessian, lower = lowerd, upper = upperd), list(...)))
     } else {
-      do.call(optim_string, c(list(par = start, fn = f, method = method, hessian = TRUE), list(...)))
+      do.call(optim_string, c(list(par = start, fn = f, method = method, hessian = solve_hessian), list(...)))
     }
     
     
