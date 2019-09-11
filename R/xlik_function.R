@@ -54,16 +54,7 @@ xlik <- function(...,
     #print(names(args))
     d_df <- data_df
     
-    
-    if(latent_classes > 0 && length(latent_class_parameters)>0) {
-      for(i in 1:latent_classes) {
-        
-        args[[latent_class_parameters]] <- args[[paste(latent_class_parameters, i, sep = ".")]]
-        d_df <- formula_loop(paste0(".", i))
-      }
-    } else {
-      d_df <- formula_loop()
-    }
+    d_df <- formula_loop()
     
     return(d_df)
     
@@ -99,29 +90,6 @@ xlik <- function(...,
   
   sumList <- list()
   ret_sum <- 0
-  
-  if(latent_classes > 0 && length(latent_class_parameters)>0)  {
-    
-    for(i in 2:latent_classes) {
-      if(any(as.logical(unlist(args[paste0(latent_class_parameters, ".", i)])) < unlist(args[paste0(latent_class_parameters, ".", i-1)]))) return(999999999)
-    }
-    
-    
-    for(i in 1:length(resList)) {
-      if(i == 1) lc_df <- resList[[i]][, c("internal_classgroup", paste0("wp.", 1:latent_classes))]
-      else lc_df <- rbind(lc_df, resList[[i]][, c("internal_classgroup", paste0("wp.", 1:latent_classes))])
-    }
-    latent_sums <- aggregate(lc_df[,2:(latent_classes +1)], by = list(internal_classgroup = lc_df$internal_classgroup), FUN = sum)
-    
-    latent_sums$latent_class <- apply(latent_sums[, 2:NCOL(latent_sums)], 1, function(x) match(min(x), x))
-    for(i in 1:length(resList)) {
-      resList[[i]]$latent_class <- latent_sums$latent_class[match(resList[[i]]$internal_classgroup, latent_sums$internal_classgroup)]
-      resList[[i]]$Xb <- resList[[i]][, paste0("Xb.", 1:latent_classes)][tmp <- matrix(c(1:NROW(resList[[i]]), resList[[i]]$latent_class), ncol = 2)]
-      resList[[i]]$p <- resList[[i]][, paste0("p.", 1:latent_classes)][tmp]
-      resList[[i]]$wp <- resList[[i]][, paste0("wp.", 1:latent_classes)][tmp]
-    }
-  }
-  
   
   for(i in 1:length(resList)) ret_sum <- ret_sum + (sumList[[names(resList)[i]]] <- sum(resList[[i]]$wp))
   
