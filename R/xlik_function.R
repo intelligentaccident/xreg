@@ -71,7 +71,17 @@ xlik <- function(...,
   
   
   resList <- list()
-  
+  if(print_sum) {
+    
+    this_call <- match.call()
+    #print(names(this_call))
+    
+    #print(names(args))
+    this_call[!names(this_call) %in% names(args)] <- NULL
+    
+    print(unlist(as.list(this_call)))
+    
+  }
   
   for(dataName in names(dataList)) {
     data_df <- dataList[[dataName]]
@@ -118,17 +128,7 @@ xlik <- function(...,
   if(return_first_df) return(resList)
   
   if(print_sum) {
-    
-    this_call <- match.call()
-    #print(names(this_call))
-    
-    #print(names(args))
-    this_call[!names(this_call) %in% names(args)] <- NULL
-    
-    print(unlist(as.list(this_call)))
-    
-    # print(resList)
-    
+
     print(paste("Sum: ",ret_sum))
     
   }

@@ -1,7 +1,7 @@
 Package: xreg
 Type: Package
 Title: Flexible maximum likelihood-based regression
-Version: 0.2.3
+Version: 0.2.4
 Authors@R: person("Kim", "Rand", email = "intelligentaccident@gmail.com", role = c("aut", "cre"))
 Description: Allows separate functional forms for separte sets of data, shared and non-shared coefficients, non-linearity, random intercept models, etc.
 Depends: R (>= 3.3.1)
