@@ -153,13 +153,13 @@ xreg <- function(controlList,
   
   for(dataName in names(dataList)) {
     rel_col <- vector()
-    control <- controlList[[dataName]]
+    thisControl <- thisControlList[[dataName]]
     data_df <- dataList[[dataName]]
     orig_cols <- colnames(data_df)
     valueVar <- NA
     defined_vars <- colnames(data_df)
     local_vars <- character()
-    for(formula in control$formulas) {
+    for(formula in thisControl$formulas) {
       targetName <- as.character(formula[[2]])
       rel_col <- c(rel_col, all.vars(formula)[!all.vars(formula) %in% rel_col])
       if(is.na(valueVar)) if(targetName %in% colnames(data_df) | (length(grep(paste0(targetName, "\\."), colnames(data_df), value = TRUE)) == 2)) valueVar <- targetName
@@ -172,7 +172,7 @@ xreg <- function(controlList,
     local_vars <- local_vars[!local_vars %in% colnames(data_df)]
     #print(local_vars)
     controlList[[dataName]][["defined_vars"]] <- local_vars
-    censor_bounds <- control$censor_bounds
+    censor_bounds <- thisControl$censor_bounds
     #print(colnames(data_df))
     #print(valueVar)
     grep_vals <- grep(paste0(valueVar, "\\."), colnames(data_df), value = TRUE)
@@ -212,11 +212,11 @@ xreg <- function(controlList,
     data_df <- within(data_df, {
       both_na <- is.na(internal_ub) * is.na(internal_lb)
       
-      internal_ub[internal_ub >= max(control$censor_bounds)] <- Inf
-      internal_lb[internal_lb <= min(control$censor_bounds)] <- -Inf
+      internal_ub[internal_ub >= max(thisControl$censor_bounds)] <- Inf
+      internal_lb[internal_lb <= min(thisControl$censor_bounds)] <- -Inf
       
-      internal_lb[internal_lb >= max(control$censor_bounds)] <- max(control$censor_bounds)
-      internal_ub[internal_ub <= min(control$censor_bounds)] <- min(control$censor_bounds)
+      internal_lb[internal_lb >= max(thisControl$censor_bounds)] <- max(thisControl$censor_bounds)
+      internal_ub[internal_ub <= min(thisControl$censor_bounds)] <- min(thisControl$censor_bounds)
       
       internal_ub[is.na(internal_ub)] <- Inf
       internal_lb[is.na(internal_lb)] <- -Inf
@@ -242,7 +242,7 @@ xreg <- function(controlList,
       warning(paste0(sum(data_df$both_na)," rows in which ", valueVar, " was NA were removed."))
       data_df <- data_df[!data_df$both_na, -(NCOL(data_df))]
     }
-    if(!is.na((weights_var <- control$weights_var)) & weights_var %in% colnames(data_df)) data_df$internal_count <- data_df[, weights_var]
+    if(!is.na((weights_var <- thisControl$weights_var)) & weights_var %in% colnames(data_df)) data_df$internal_count <- data_df[, weights_var]
     
     relevant_columns <- c(rel_col, colnames(data_df)[grep("internal_", colnames(data_df))])
     
@@ -258,8 +258,8 @@ xreg <- function(controlList,
     }
     controlList[[dataName]]$orig_cols <- orig_cols
     
-    startValues <- c(startValues, control$start_values[!names(control$start_values) %in% names(startValues)])
-    fixedValues <- c(fixedValues, control$fixed_values[!names(control$fixed_values) %in% names(fixedValues)])
+    startValues <- c(startValues, thisControl$start_values[!names(thisControl$start_values) %in% names(startValues)])
+    fixedValues <- c(fixedValues, thisControl$fixed_values[!names(thisControl$fixed_values) %in% names(fixedValues)])
     
     all_defined_vars <- c(all_defined_vars, defined_vars[!defined_vars %in% all_defined_vars])
     
@@ -332,8 +332,9 @@ xreg <- function(controlList,
   
   
   
-  if("control" %in% names(e_params)){
+  if("optim_control" %in% names(e_params)){
     control <- e_params[["control"]]
+    dot_args['control'] <- NULL
   } else {
     boxconstr <- F
     if("method" %in% names(list(...))) {
