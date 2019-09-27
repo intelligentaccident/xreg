@@ -333,8 +333,8 @@ xreg <- function(controlList,
   
   
   if("optim_control" %in% names(e_params)){
-    control <- e_params[["control"]]
-    dot_args['control'] <- NULL
+    control <- e_params[["optim_control"]]
+    dot_args['optim_control'] <- NULL
   } else {
     boxconstr <- F
     if("method" %in% names(list(...))) {
