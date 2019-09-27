@@ -153,7 +153,7 @@ xreg <- function(controlList,
   
   for(dataName in names(dataList)) {
     rel_col <- vector()
-    thisControl <- ControlList[[dataName]]
+    thisControl <- controlList[[dataName]]
     data_df <- dataList[[dataName]]
     orig_cols <- colnames(data_df)
     valueVar <- NA
