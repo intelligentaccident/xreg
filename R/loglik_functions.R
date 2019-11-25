@@ -108,6 +108,23 @@ dich_logistic <- function(d_df, theta_est = 0) {
   return(d_df$internal_lb*(-log(1+exp(-d_df$Xb*d_df$theta_est)))   + (1-d_df$internal_lb)*(-d_df$Xb*d_df$theta_est   - log(1+exp(-d_df$Xb*d_df$theta_est))))
 }
 
+#' Likelihood functions for data.frame
+#' @title OLS-minimizer, used by xregControl and xreg
+#' @param d_df data.frame provided by xreg.
+#' @description Likelihood function to use with xregControl
+#' @export
+cont_ols <- function(d_df) -(d_df$Xb-d_df$internal_lb)^2
+
+#' Likelihood functions for data.frame
+#' @title Probability likelihood over probabilities, used by xregControl and xreg
+#' @param d_df data.frame provided by xreg.
+#' @description Likelihood function to use with xregControl
+#' @export
+dich_loglik <- function(d_df){ 
+  thisp <- d_df$internal_lb*log(d_df$Xb)+(1-d_df$internal_lb)*log(1-d_df$Xb)
+  thisp[thisp == -Inf] <- log(.Machine$double.xmin)
+  return(thisp)}
+
 
 #' Likelihood functions for data.frame
 #' @title Normal-distribution-based likelihood function for dichotomous data, used by xregControl and xreg
