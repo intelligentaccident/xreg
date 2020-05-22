@@ -6,11 +6,18 @@
 \alias{c.xregControlList}
 \title{Formula, start value, and custom criterion function fitting for xreg#'}
 \usage{
-xregControl(formulas, start_values = numeric(),
-  fixed_values = numeric(), p_fun = cont_normal,
-  p_aggregation_fun = function(d_df) return(-d_df$p *
-  d_df$internal_count), weights_var = NA, name = NA,
-  censor_bounds = c(-Inf, Inf), lower = NA, upper = NA)
+xregControl(
+  formulas,
+  start_values = numeric(),
+  fixed_values = numeric(),
+  p_fun = cont_normal,
+  p_aggregation_fun = function(d_df) return(-d_df$p * d_df$internal_count),
+  weights_var = NA,
+  name = NA,
+  censor_bounds = c(-Inf, Inf),
+  lower = NA,
+  upper = NA
+)
 }
 \arguments{
 \item{formulas}{List of formulas to be fitted for data.frames with same name. If more thann one formula is provided, a column named like the the left-hand side will be generated  in the data.frame during calculation, which can then be used in subsequent formulas. See examples}

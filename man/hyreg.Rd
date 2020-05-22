@@ -4,10 +4,22 @@
 \alias{hyreg}
 \title{Flexible maximum-likelihood-based regression function}
 \usage{
-hyreg(formula, df, datatype = "method", init = numeric(),
-  contdist = "normal", dichdist = "logistic", hetcont = NULL,
-  hetdich = NULL, ul = Inf, ll = -Inf, lntheta = T, lnsigma = T,
-  dichformula = NULL, ...)
+hyreg(
+  formula,
+  df,
+  datatype = "method",
+  init = numeric(),
+  contdist = "normal",
+  dichdist = "logistic",
+  hetcont = NULL,
+  hetdich = NULL,
+  ul = Inf,
+  ll = -Inf,
+  lntheta = T,
+  lnsigma = T,
+  dichformula = NULL,
+  ...
+)
 }
 \arguments{
 \item{formula}{a formula or list of formulas to be passed to xregControl and xreg. If a single formula is provided, the left side argument must match the dependent variable. If interval regression is intended, the upper and lower bounds should be assigned to two columns starting with a common name, e.g. value.lb and value.ub. For point estimates, these should be identical.}

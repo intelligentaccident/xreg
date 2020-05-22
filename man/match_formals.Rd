@@ -4,8 +4,10 @@
 \alias{match_formals}
 \title{Match arguments sent to current function to arguments found in separtae function, and return as list.}
 \usage{
-match_formals(fun = as.character(do.call("match.call", args = list(),
-  envir = parent.frame())[1]), ...)
+match_formals(
+  fun = as.character(do.call("match.call", args = list(), envir = parent.frame())[1]),
+  ...
+)
 }
 \arguments{
 \item{fun}{Function whose arguments should be matched}

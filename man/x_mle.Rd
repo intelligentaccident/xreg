@@ -4,9 +4,18 @@
 \alias{x_mle}
 \title{Modification of the mle function from the stats4 package}
 \usage{
-x_mle(minuslogl, start = formals(minuslogl), method = "L-BFGS-B",
-  fixed = list(), nobs, solve_hessian = T, return_first = FALSE,
-  lower = -Inf, upper = Inf, ...)
+x_mle(
+  minuslogl,
+  start = formals(minuslogl),
+  method = "L-BFGS-B",
+  fixed = list(),
+  nobs,
+  solve_hessian = T,
+  return_first = FALSE,
+  lower = -Inf,
+  upper = Inf,
+  ...
+)
 }
 \arguments{
 \item{minuslogl}{Function to be minimized}

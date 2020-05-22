@@ -413,7 +413,7 @@ xreg <- function(controlList,
   rownames(obs_types) <- c("Uncensored", "Left-censored", "Right-censored", "Intervals")
   for(nm in names(dfs)) {
     
-    res_types[["p_sum"]][[nm]] <- sum(controlList[[dataName]]$p_aggregation_fun(dfs[[nm]]))
+    res_types[["p_sum"]][nm] <- sum(controlList[[dataName]]$p_aggregation_fun(dfs[[nm]]))
     
     
     pars[rownames(pars) %in% controlList[[nm]]$defined_vars,paste0("n_", nm)] <- res_types[["counts"]][nm] <- sum(dfs[[nm]]$internal_count)
@@ -427,10 +427,9 @@ xreg <- function(controlList,
   
   testmle$pars <- pars
   testmle$pars_v <- pars[,1]
-  #print(testmle$pars)
+  
   testmle$coef <- testmle$pars[,1]
   names(testmle$coef) <- rownames(testmle$pars)
-  
   res_types[["counts"]][["total_count"]] <- sum(res_types[["counts"]])
   res_types[["p_sum"]]["total"] <- sum(res_types[["p_sum"]])
   

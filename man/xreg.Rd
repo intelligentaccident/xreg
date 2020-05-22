@@ -6,11 +6,18 @@
 \alias{print.xreg}
 \title{Flexible maximum-likelihood-based regression function}
 \usage{
-xreg(controlList, dataList, start_values = numeric(),
-  fixed_values = numeric(), latent_classes = 0,
+xreg(
+  controlList,
+  dataList,
+  start_values = numeric(),
+  fixed_values = numeric(),
+  latent_classes = 0,
   latent_class_parameters = character(),
-  latent_id_colname = character(), return_type = "fit",
-  print_sum = F, ...)
+  latent_id_colname = character(),
+  return_type = "fit",
+  print_sum = F,
+  ...
+)
 }
 \arguments{
 \item{controlList}{one or more xregControl-objects (concatenated using c() ) to control maximum-likelihood estimation for different types or sets of data provided in dataList. Can alternatively provide a single formula or list of formulas, in which case an xregControl object will be generated on the fly. An xreg-object can be provided, in which case the xregControlList will be extracted. See examples}

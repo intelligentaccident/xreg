@@ -6,9 +6,16 @@
 \alias{print.xreg}
 \title{Internal function used by xreg}
 \usage{
-xlik(..., controlList, dataList, print_sum = FALSE,
-  return_lik_df = FALSE, return_first_df = FALSE, latent_classes = 0,
-  latent_class_parameters = character())
+xlik(
+  ...,
+  controlList,
+  dataList,
+  print_sum = FALSE,
+  return_lik_df = FALSE,
+  return_first_df = FALSE,
+  latent_classes = 0,
+  latent_class_parameters = character()
+)
 }
 \arguments{
 \item{...}{optional arguments to be forwarded to x_mle, optim, xregControl, etc.}
@@ -26,8 +33,6 @@ xlik(..., controlList, dataList, print_sum = FALSE,
 \item{latent_classes}{Optional integer parameter defining the number of latent classes to be fitted}
 
 \item{latent_class_parameter}{Optional character vector with names corresponding to the parameters that are to be varied in the latent classes (if latent_classes > 1)}
-
-\item{...}{optional arguments to be forwarded to x_mle, optim, xregControl, etc.}
 }
 \description{
 Allows a list of formulas and fitting functions to be used for each type or set of data.
