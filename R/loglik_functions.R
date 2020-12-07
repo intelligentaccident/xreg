@@ -69,13 +69,19 @@ cont_r_normal <- function (d_df, sigma_est = 0, omega_est = 0, internal_id = 0) 
   
   d_df$p <- 0
   
-  order <- 20L
+  GH_order <- 8L
   
-  ws <- as.matrix(xreg_GHS[[order]]$w)
-  xs <- xreg_GHS[[order]]$x
+  if(!is.null(.Options$xreg$Gauss_Hermite_Order)) {
+    GH_order <- .Options$xreg$Gauss_Hermite_Order
+  } else  {
+    .Options$xreg$Gauss_Hermite_Order <- GH_order
+  }
+  
+  ws <- as.matrix(xreg_GHS[[GH_order]]$w)
+  xs <- xreg_GHS[[GH_order]]$x
   mus <- sqrt(2) * betwSD * xs
   
-  tmpm <- matrix(NA, nrow = NROW(d_df), ncol = order)
+  tmpm <- matrix(NA, nrow = NROW(d_df), ncol = GH_order)
   
   
   sel <- (d_df$internal_ub == d_df$internal_lb)
@@ -166,13 +172,13 @@ dich_r_logistic <- function(d_df, theta_est = 0, omega_est = 0, internal_id = 0)
   
   d_df$p <- 0
   
-  order <- 20L
+  GH_order <- 20L
   
-  ws <- as.matrix(xreg_GHS[[order]]$w)
-  xs <- xreg_GHS[[order]]$x
+  ws <- as.matrix(xreg_GHS[[GH_order]]$w)
+  xs <- xreg_GHS[[GH_order]]$x
   mus <- sqrt(2) * betwSD * xs
   
-  tmpm <- matrix(NA, nrow = NROW(d_df), ncol = order)
+  tmpm <- matrix(NA, nrow = NROW(d_df), ncol = GH_order)
   
   
   
